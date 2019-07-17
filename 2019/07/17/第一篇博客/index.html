@@ -18,10 +18,11 @@
     <link rel="dns-prefetch" href="http://blog.luckyhe.com">
     <!--SEO-->
 
-    <meta name="keywords" content="hexo,Java">
+    <meta name="keywords" content="JAVA,MQ">
 
 
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ...">
+    <meta name="description" content="绪言
+目前消息对列的使用还是很广泛的，很多公司对这一块技术都会有要求。比如kafka，activeMQ，RabbitMQ是目前使用较多消息中间件。博主目前使用过activeMQ跟RabbitMQ...">
 
 
 
@@ -33,7 +34,7 @@
     <!--Title-->
 
 
-<title>Hello hexo | 橙寂博客</title>
+<title>消息队列的概述(MQ) | 橙寂博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="橙寂博客" type="application/atom+xml">
@@ -138,16 +139,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Hello hexo">
+        <h1 id="消息队列的概述(MQ)">
             
-	            Hello hexo
+	            消息队列的概述(MQ)
             
         </h1>
         <div class="post-meta">
     
         <span class="categories-meta fa-wrap">
             <i class="fa fa-folder-open-o"></i>
-            <a class="category-link" href="/categories/前端/">前端</a> <a class="category-link" href="/categories/前端/后端/">后端</a>
+            <a class="category-link" href="/categories/后端/">后端</a>
         </span>
     
 
@@ -156,7 +157,7 @@
             <i class="fa fa-tags"></i>
             <span class="tags-meta">
                 
-                    <a class="tag-link" href="/tags/Java/">Java</a> <a class="tag-link" href="/tags/hexo/">hexo</a>
+                    <a class="tag-link" href="/tags/JAVA/">JAVA</a> <a class="tag-link" href="/tags/MQ/">MQ</a>
                 
             </span>
         </span>
@@ -181,19 +182,45 @@
     </div>
     
     <div class="post-body post-content">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="绪言"><a href="#绪言" class="headerlink" title="绪言"></a>绪言</h1><blockquote>
+<p>目前消息对列的使用还是很广泛的，很多公司对这一块技术都会有要求。比如kafka，activeMQ，RabbitMQ是目前使用较多消息中间件。博主目前使用过activeMQ跟RabbitMQ用起来差别也不大。所以这边看公司需要掌握其中一种就好了。</p>
+</blockquote>
+<h1 id="什么是消息队列"><a href="#什么是消息队列" class="headerlink" title="什么是消息队列"></a>什么是消息队列</h1><blockquote>
+<p>消息（Message）是指在应用之间传送的数据，消息可以非常简单，比如只包含文本字符串，也可以更复杂，可能包含嵌入对象。<br>消息队列（Message Queue）是一种应用间的通信方式，消息发送后可以立即返回，有消息系统来确保信息的可靠专递，消息发布者只管把消息发布到MQ中而不管谁来取，消息使用者只管从MQ中取消息而不管谁发布的，这样发布者和使用者都不用知道对方的存在。</p>
+</blockquote>
+<h1 id="消息队列的主要形式"><a href="#消息队列的主要形式" class="headerlink" title="消息队列的主要形式"></a>消息队列的主要形式</h1><ol>
+<li>队列(quene) 点对点式<blockquote>
+<p>消息发送者发送消息，消息代理将其放入一个队列中，消息接收者从队列中获取消息内容，消息读取后被移出队列<br>消息只有唯一的发送者和接受者，但并不是说只能有一个接收者通俗来说就是一对一的发消息<br>举例子:qq私聊，微信私聊</p>
+</blockquote>
+</li>
+<li>主题（topic）发布订阅式 <blockquote>
+<p>发送者（发布者）发送消息到主题，多个接收者（订阅者）监听（订阅）这个主题，那么就会在消息到达时同时收到消息<br>举例子 ：公众号发了个信息然后你关注了的人都能收到，微信群发。</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="消息队列协议"><a href="#消息队列协议" class="headerlink" title="消息队列协议"></a>消息队列协议</h1><p><strong>1.JMS（Java Message Service）JAVA消息服务</strong></p>
+<blockquote>
+<p>基于JVM消息代理的规范。ActiveMQ、HornetMQ是JMS实现</p>
+</blockquote>
+<p><strong>2.AMQP（Advanced Message Queuing Protocol）</strong></p>
+<blockquote>
+<p>高级消息队列协议，也是一个消息代理的规范，兼容JMS<br>RabbitMQ是AMQP的实现</p>
+</blockquote>
+<p>**  对比 **<br>这两种规范在spring中都是支持的，所以随便使用哪个都是可以的<br>我这边来说下他们的不同<br>1.JMS是基于java api定义的所以他跨平台性较差<br>2.AMQP它是一种网络线级协议所以他是跨平台的，跨语言特性较好<br>3.AMQP中引用了交换机跟路由件的概念。提供的消息模型更多详情在下篇对rabbit的博客中讲解<br>3.AMQP本质是基于byte传输的，支持序列化跟发序列化，在spring中集成的很好。</p>
+<p><img src="http://image.luckyhe.com/mblog/0d145912c4cb1a06630fd888973af132.png" alt="2.png"></p>
+<h1 id="消息队列能干什么"><a href="#消息队列能干什么" class="headerlink" title="消息队列能干什么"></a>消息队列能干什么</h1><h4 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a>异步处理</h4><p>  场景:有这么一个场景就是注册了账号，需要发短信，又需要发送邮件。要以最快的速度去完成大家  会怎么去做。<br>  解决方案:</p>
+<blockquote>
+<p>第一种方法就是顺序先发短信，在发邮件<br>第二种 使用多线程<br>第三种 使用消息队列</p>
+</blockquote>
+<h4 id="应用解耦"><a href="#应用解耦" class="headerlink" title="应用解耦"></a>应用解耦</h4><p>场景:在一个分布式应用中新增了一个商品 在搜索模块中要把这个商品静态化然后还要把这个商品加入到solr的索引库中。注意这是两个模块的功能。<br>解决方案:</p>
+<blockquote>
+<p>新增了商品发送一个消息，搜索模块订阅这个消息然后做功能。当然这里可能你别的模块也需要用到这个消息，这时只需要让别的模块也订阅这个消息就好了。</p>
+</blockquote>
+<h4 id="处理高并发"><a href="#处理高并发" class="headerlink" title="处理高并发"></a>处理高并发</h4><p>场景:秒杀场景<br>解决方案:</p>
+<blockquote>
+<p>用户下单了发送一个消息到消息队列中，这时相应的服务在去消息队列中调用做相应的功能就好了。</p>
+</blockquote>
+<p>我的下一篇文章会针对RabbitMQ做下介绍。这是我的个人站点希望大佬指导批评<a href="http://www.luckyhe.com" target="_blank" rel="noopener">橙寂博客</a></p>
 
     </div>
     
@@ -232,7 +259,7 @@
 <div class="article-nav prev-next-wrap clearfix">
     
     
-        <a href="/2019/07/16/hello-world/" class="next-post btn btn-default" title='Hello hexo'>
+        <a href="/2019/07/17/消息队列的概述(MQ)/" class="next-post btn btn-default" title='Hello hexo'>
             <span class="hidden-lg">下一篇</span>
             <span class="hidden-xs">Hello hexo</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
@@ -277,7 +304,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#绪言"><span class="toc-text">绪言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是消息队列"><span class="toc-text">什么是消息队列</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消息队列的主要形式"><span class="toc-text">消息队列的主要形式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消息队列协议"><span class="toc-text">消息队列协议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消息队列能干什么"><span class="toc-text">消息队列能干什么</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#异步处理"><span class="toc-text">异步处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用解耦"><span class="toc-text">应用解耦</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理高并发"><span class="toc-text">处理高并发</span></a></li></ol></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
