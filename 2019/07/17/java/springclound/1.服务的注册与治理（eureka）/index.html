@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="橙寂博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://blog.luckyhe.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="微服务,java,eureka,springClound">
+
+
+    <meta name="description" content="服务的注册与治理（eureka）
+1.新建一个maven父项目1.2 然后创建2个model工程:一个model工程作为服务注册中心，即Eureka Server,另一个作为Eureka pro...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>服务的注册与治理（eureka） | 橙寂博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="橙寂博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='橙寂'>
+            <img src="/img/avatar.png" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 橙寂博客,不忘初心 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://blog.luckyhe.com">橙寂博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/lunix/"><i class="fa "></i>lunix</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="服务的注册与治理（eureka）">
+            
+	            服务的注册与治理（eureka）
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/后端/">后端</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/eureka/">eureka</a> <a class="tag-link" href="/tags/java/">java</a> <a class="tag-link" href="/tags/springClound/">springClound</a> <a class="tag-link" href="/tags/微服务/">微服务</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/17</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="服务的注册与治理（eureka）"><a href="#服务的注册与治理（eureka）" class="headerlink" title="服务的注册与治理（eureka）"></a><strong>服务的注册与治理（eureka）</strong></h3><blockquote>
+<p>1.新建一个maven父项目<br>1.2 然后创建2个model工程:一个model工程作为服务注册中心，即Eureka Server,另一个作为Eureka provider。<br>下面以server创建为例子<br>–&gt;右键工程–&gt;创建model–&gt;选择 spring initialir（如果没有这个选项的参考<a href="https://app.yinxiang.com/shard/s39/nl/24049718/4a538794-5f15-41da-b6e3-4024ed12ae5b" target="_blank" rel="noopener">idea中安装spring initializr</a>）如图<img src="http://image.luckyhe.com/mblog/1719416e01219a6c09892b640ddef827.png" alt="1.png"><br>然后一直下一步 选择cloud discovery-&gt;eureka server–&gt;一直下一步</p>
+</blockquote>
+<p><img src="http://image.luckyhe.com/mblog/d177865a8a6b43218de119598b66a62d.png" alt="2.png"><br>完成后pom文件如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">	&lt;parent&gt;</span><br><span class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;2.1.3.RELEASE&lt;/version&gt;</span><br><span class="line">		&lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">	&lt;/parent&gt;</span><br><span class="line">	&lt;groupId&gt;com.jange&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;eureka-server&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">	&lt;name&gt;eureka-server&lt;/name&gt;</span><br><span class="line">	&lt;description&gt;eureka-server&lt;/description&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">		&lt;spring-cloud.version&gt;Greenwich.SR1&lt;/spring-cloud.version&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">			&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencyManagement&gt;</span><br><span class="line">		&lt;dependencies&gt;</span><br><span class="line">			&lt;dependency&gt;</span><br><span class="line">				&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span><br><span class="line">				&lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;</span><br><span class="line">				&lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">				&lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">			&lt;/dependency&gt;</span><br><span class="line">		&lt;/dependencies&gt;</span><br><span class="line">	&lt;/dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line"></span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>  1.3 启动一个服务注册中心，只需要一个注解@EnableEurekaServer，这个注解需要在springboot工程的启动application类上加@EnableEurekaServer 这个注解行了如图<br>：<img src="http://image.luckyhe.com/mblog/aa23083b46a347d38e4aa7a81c390921.png" alt="3.png"><br>1.4 eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka server也是一个eureka client ,必须要指定一个 server。eureka server的配置文件appication.yml：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 9000</span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    hostname: localhost</span><br><span class="line">  client:</span><br><span class="line">    registerWithEureka: false</span><br><span class="line">    fetchRegistry: false</span><br><span class="line">    serviceUrl:</span><br><span class="line">      defaultZone: http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span><br><span class="line">  #正式环境注销</span><br><span class="line">  server:</span><br><span class="line">      enable-self-preservation: false   #是关闭自我保护模式，默认为true。</span><br><span class="line">      eviction-interval-timer-in-ms: 4000  #清理无效节点的时间间隔，默认</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过eureka.client.registerWithEureka：false和fetchRegistry：false来表明自己是一个eureka server.<br>1.5 eureka server 是有界面的，启动工程,打开浏览器访问：<br>   <a href="http://localhost:9000" target="_blank" rel="noopener">http://localhost:9000</a> ,界面如下：<br>   <img src="http://image.luckyhe.com/mblog/b3b9de8f97ab22917f10954004a3b7d6.png" alt="4.png"></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>三、创建一个服务提供者 (service-provide1)<br>当service-provide1向server注册时，它会提供一些元数据，例如主机和端口，URL，主页等。Eureka server 从每个client实例接收心跳消息。 如果心跳超时，则通常将该实例从注册server中删除。<br>创建过程同server类似注意选择eureka discovery,创建完pom.xml如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">	&lt;parent&gt;</span><br><span class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;2.1.3.RELEASE&lt;/version&gt;</span><br><span class="line">		&lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">	&lt;/parent&gt;</span><br><span class="line">	&lt;groupId&gt;com.janhe&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;priveder&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">	&lt;name&gt;priveder&lt;/name&gt;</span><br><span class="line">	&lt;description&gt;Demo project for Spring Boot&lt;/description&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">		&lt;spring-cloud.version&gt;Greenwich.SR1&lt;/spring-cloud.version&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;RELEASE&lt;/version&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">			&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencyManagement&gt;</span><br><span class="line">		&lt;dependencies&gt;</span><br><span class="line">			&lt;dependency&gt;</span><br><span class="line">				&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span><br><span class="line">				&lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;</span><br><span class="line">				&lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">				&lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">			&lt;/dependency&gt;</span><br><span class="line">		&lt;/dependencies&gt;</span><br><span class="line">	&lt;/dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line"></span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>然后在启动类eEurekaClient注解 //表明自己是服务的提供者<br>其次在application.yaml文件上加上</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8010</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-provider</span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    serviceUrl:</span><br><span class="line">      defaultZone: http://localhost:9000/eureka/ #注册中心</span><br><span class="line">    healthcheck:</span><br><span class="line">      enabled: true                               # 开启健康检查（需要spring-boot-starter-actuator依赖）</span><br><span class="line">  instance:</span><br><span class="line">    lease-expiration-duration-in-seconds: 30  # 续约到期时间（默认90秒）</span><br><span class="line">    lease-renewal-interval-in-seconds: 10     # 续约更新</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h6 id="写个控制器"><a href="#写个控制器" class="headerlink" title="写个控制器"></a>写个控制器</h6></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package com.janhe.priveder.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Auther: Jan </span><br><span class="line"> * @Date: 2019-4-1 09:28</span><br><span class="line"> * @Description:</span><br><span class="line"> */</span><br><span class="line">@RestController</span><br><span class="line">public class HelloController &#123;</span><br><span class="line"></span><br><span class="line">    @Value(&quot;$&#123;server.port&#125;&quot;)</span><br><span class="line">    String port;</span><br><span class="line">    @RequestMapping(&quot;/hello&quot;)</span><br><span class="line">    public String home(@RequestParam String name) &#123;</span><br><span class="line">        return &quot;hi &quot;+name+&quot;,port:&quot; +port;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>最后启动项目先启动server然后在启动provider<br>最后访问<a href="http://localhost:9000" target="_blank" rel="noopener">http://localhost:9000</a> ,界面如下：<br>!<img src="http://image.luckyhe.com/mblog/3ab607b5b9ed495f3633cb4e14ee13e8.png" alt="5.png"><br>如图服务已经注册到注册中心了</p>
+</blockquote>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://image.luckyhe.com/reward-zfbpay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://image.luckyhe.com/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="www.luckyhe.com" target="_blank">橙寂</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/07/17/java/springclound/2.服务消费者（feign）/" class="pre-post btn btn-default" title='服务消费者（feign）'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">服务消费者（feign）</span>
+        </a>
+    
+    
+        <a href="/2019/07/17/java/jvm/Java虚拟机的类加载机制/" class="next-post btn btn-default" title='Java虚拟机的类加载机制'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Java虚拟机的类加载机制</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务的注册与治理（eureka）"><span class="toc-text">服务的注册与治理（eureka）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#写个控制器"><span class="toc-text">写个控制器</span></a></li></ol></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

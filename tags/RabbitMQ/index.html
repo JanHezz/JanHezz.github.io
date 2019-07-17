@@ -18,10 +18,10 @@
     <link rel="dns-prefetch" href="http://blog.luckyhe.com">
     <!--SEO-->
 
-    <meta name="keywords" content="hexo,Java">
+    <meta name="keywords" content="橙寂,砍材人">
 
 
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ...">
+    <meta name="description" content="橙寂博客,不忘初心">
 
 
 
@@ -33,7 +33,7 @@
     <!--Title-->
 
 
-<title>Hello hexo | 橙寂博客</title>
+<title>标签: RabbitMQ | 橙寂博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="橙寂博客" type="application/atom+xml">
@@ -118,6 +118,10 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
+                                <a href="/categories/lunix/"><i class="fa "></i>lunix</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
                                 <a href="/categories/工具/"><i class="fa "></i>工具</a>
                             </li>
                         
@@ -134,138 +138,43 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content m-post">
-                    <p id="process"></p>
-<article class="post">
-    <div class="post-head">
-        <h1 id="Hello hexo">
-            
-	            Hello hexo
-            
-        </h1>
-        <div class="post-meta">
+                <main class="col-md-8 main-content ">
+                    <ol class="breadcrumb">
     
-        <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-            <a class="category-link" href="/categories/前端/">前端</a> <a class="category-link" href="/categories/前端/后端/">后端</a>
-        </span>
+    
+        <li>
+            RabbitMQ
+        </li>
+    
     
 
-    
-        <span class="fa-wrap">
-            <i class="fa fa-tags"></i>
-            <span class="tags-meta">
+</ol>
+
+
+    <article class="post">
+        
+        <div class="post-content">
+            <div class="post-head home-post-head">
+                <h1 class="post-title">
+                    <a href="/2019/07/17/mq/消息服务RabbitMQ/">消息服务RabbitMQ</a>
+                </h1>
+                <div class="post-meta">  &bull;
+                    <time class="post-date" datetime="" title="">
+                        2019年07月17日
+                    </time>
+                </div>
+            </div>
+            <p class="brief">
                 
-                    <a class="tag-link" href="/tags/Java/">Java</a> <a class="tag-link" href="/tags/hexo/">hexo</a>
+                    绪言
+之前使用过ActiveMQ,但是发现很大一部分都是在使用RabbitMQ,在springboot中整合RabbitMQ也是非常简洁的，所以这里决定学习一下RabbitMQ。要使用消息队列是非常简单，但是最好自己有一点了解。使用的...
                 
-            </span>
-        </span>
-    
-
-    
-        
-        <span class="fa-wrap">
-            <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/07/16</span>
-        </span>
-        
-            <span class="fa-wrap">
-                <i class="fa fa-eye"></i>
-                <span id="busuanzi_value_page_pv"></span>
-            </span>
-        
-    
-</div>
-            
-            
-    </div>
-    
-    <div class="post-body post-content">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-    </div>
-    
-        <div class="reward" ontouchstart>
-    <div class="reward-wrap">赏
-        <div class="reward-box">
-            
-                <span class="reward-type">
-                    <img class="alipay" src="http://image.luckyhe.com/reward-zfbpay.jpg"><b>支付宝打赏</b>
-                </span>
-            
-            
-                <span class="reward-type">
-                    <img class="wechat" src="http://image.luckyhe.com/reward-wepay.png"><b>微信打赏</b>
-                </span>
-            
+            </p>
         </div>
-    </div>
-    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
-</div>
+    </article>
+ 
 
 
-    
-    <div class="post-footer">
-        <div>
-            
-                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="www.luckyhe.com" target="_blank">橙寂</a>
-            
-        </div>
-        <div>
-            
-        </div>
-    </div>
-</article>
-
-<div class="article-nav prev-next-wrap clearfix">
-    
-        <a href="/2019/07/17/消息队列的概述(MQ)/" class="pre-post btn btn-default" title='Hello hexo'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Hello hexo</span>
-        </a>
-    
-    
-</div>
-
-
-    <div id="comments">
-        
-	
-    <div id="vcomments" class="valine"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
-
-    <script>
-        new Valine({
-            av: AV,
-            el: '#vcomments',
-            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
-            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
-            placeholder: '说点什么吧',
-            notify: false,
-            verify: true,
-            avatar: 'mm',
-            meta: 'nick,mail'.split(','),
-            pageSize: '10',
-            path: window.location.pathname,
-            lang: 'zh-CN'.toLowerCase()
-        })
-    </script>
-
-
-    </div>
 
 
 
@@ -273,14 +182,129 @@
 
                 </main>
                 
-                    <aside id="article-toc" role="navigation" class="col-md-4">
-    <div class="widget">
-        <h3 class="title">文章目录</h3>
+                    
+    <aside class="col-md-4 sidebar">
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        
+    <div class="widget">
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢？">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+                    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Google Search"><button type="submit" class="search-form-submit">谷歌搜索</button><input type="hidden" name="sitesearch" value="http://blog.luckyhe.com"></form>
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+        <h3 class="title">网站公告</h3>
+        <div class="notification">
+            <p>
+    一对一带人培训<a href="http://t.cn/AiWkMIyy" title="fork me" target="_blank">请联系本人QQ</a> <br/>
+    支持主题：<a href="https://github.com/shenliyang/hexo-theme-snippet/stargazers">Star一下</a>
+</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/Janhezz" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:975532442@qq.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="http://t.cn/AiWkMIyy" rel="external nofollow" title="联系QQ" target="_blank">
+			    	<i class="qq fa fa-qq"></i>
+			    </a>
+            
+	            <a href="/" rel="external nofollow" title="微信" target="_blank">
+			    	<i class="weixin fa fa-weixin"></i>
+			    </a>
+            
+	            <a href="https://jq.qq.com/?_wv=1027&k=5yUZtbr" rel="external nofollow" title="QQ群" target="_blank">
+			    	<i class="users fa fa-users"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/lunix/"><i class="fa" aria-hidden="true">lunix</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">5</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/"><i class="fa" aria-hidden="true">2019年07月</i></a><span class="archive-list-count">8</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        
+            <canvas width="300" height="300" id="tag-cloud-3d">
+                <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/centsos7/" style="font-size: 20px;">centsos7</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/eureka/" style="font-size: 10px;">eureka</a> <a href="/tags/feign/" style="font-size: 10px;">feign</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/lunix/" style="font-size: 20px;">lunix</a> <a href="/tags/mq/" style="font-size: 15px;">mq</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/springClound/" style="font-size: 15px;">springClound</a> <a href="/tags/微服务/" style="font-size: 15px;">微服务</a> <a href="/tags/类加载/" style="font-size: 10px;">类加载</a>
+            </canvas>
         
     </div>
-</aside>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="https://www.luckyhe.com" class="fa" target="_blank">橙寂博客</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
 
                 
             </div>
@@ -333,6 +357,8 @@
     </div>
 </div>
 
+
+	<script src="/js/search.js?rev=@@hash"></script>
 
 
 

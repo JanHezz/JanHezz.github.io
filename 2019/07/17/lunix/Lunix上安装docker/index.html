@@ -18,10 +18,14 @@
     <link rel="dns-prefetch" href="http://blog.luckyhe.com">
     <!--SEO-->
 
-    <meta name="keywords" content="橙寂,砍材人">
+    <meta name="keywords" content="lunix,centsos7,docker">
 
 
-    <meta name="description" content="橙寂博客,不忘初心">
+    <meta name="description" content="参考官网教程https://docs.docker.com/install/linux/docker-ce/centos/
+1. 准备工作
+1、Linux7以上或者cent OS6及以上版本
+
+...">
 
 
 
@@ -33,7 +37,7 @@
     <!--Title-->
 
 
-<title>标签: mq | 橙寂博客</title>
+<title>Lunix上安装docker | 橙寂博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="橙寂博客" type="application/atom+xml">
@@ -138,65 +142,181 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <ol class="breadcrumb">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Lunix上安装docker">
+            
+	            Lunix上安装docker
+            
+        </h1>
+        <div class="post-meta">
     
-    
-        <li>
-            mq
-        </li>
-    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/lunix/">lunix</a>
+        </span>
     
 
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/centsos7/">centsos7</a> <a class="tag-link" href="/tags/docker/">docker</a> <a class="tag-link" href="/tags/lunix/">lunix</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/17</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>参考官网教程<br><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
+<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><blockquote>
+<p>1、Linux7以上或者cent OS6及以上版本</p>
+</blockquote>
+<blockquote>
+<p>2、内核3.1.0以上</p>
+</blockquote>
+<blockquote>
+<p>3、64位操作系统<br>uname - r 可以查看lunix版本内核</p>
+</blockquote>
+<blockquote>
+<p>4.卸载旧版本</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">docker-client \ </span><br><span class="line">docker-client-latest \</span><br><span class="line">docker-common \</span><br><span class="line">docker-latest \</span><br><span class="line">docker-latest-logrotate \</span><br><span class="line">docker-logrotate \</span><br><span class="line">\ docker-engine</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>5.安装所需的包。yum-utils提供了yum-config-manager 效用，并device-mapper-persistent-data和lvm2由需要 devicemapper存储驱动程序。</p>
+</blockquote>
+<p>$ sudo yum install -y yum-utils \</p>
+<p>  device-mapper-persistent-data \</p>
+<p>  lvm2</p>
+<blockquote>
+<p>6.使用以下命令设置稳定存储库。</p>
+</blockquote>
+<p>$ sudo yum-config-manager \</p>
+<pre><code>--add-repo \
+
+https://download.docker.com/linux/centos/docker-ce.repo</code></pre><h2 id="2安装docker"><a href="#2安装docker" class="headerlink" title="2安装docker"></a>2安装docker</h2><blockquote>
+<p>1.yum安装 </p>
+</blockquote>
+<p>yum install  docker-ce</p>
+<blockquote>
+<ol start="2">
+<li>查看版本</li>
 </ol>
+</blockquote>
+<p>   docker -v    docker version 都可以</p>
+<blockquote>
+<p>3.启动docker</p>
+</blockquote>
+<p>systemctl start docker</p>
+<p>测试docker运行成功没</p>
+<pre><code>sudo docker run hello-world</code></pre><h2 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h2><blockquote>
+<ol>
+<li>设置开机启动</li>
+</ol>
+</blockquote>
+<pre><code>systemctl enable docker</code></pre><blockquote>
+<p>2.停止docker</p>
+</blockquote>
+<p>   systemctl stop docker</p>
 
-
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title">
-                    <a href="/2019/07/17/mq/消息服务RabbitMQ/">消息服务RabbitMQ</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2019年07月17日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                    绪言
-之前使用过ActiveMQ,但是发现很大一部分都是在使用RabbitMQ,在springboot中整合RabbitMQ也是非常简洁的，所以这里决定学习一下RabbitMQ。要使用消息队列是非常简单，但是最好自己有一点了解。使用的...
-                
-            </p>
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://image.luckyhe.com/reward-zfbpay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://image.luckyhe.com/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
         </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title">
-                    <a href="/2019/07/17/mq/消息队列的概述(MQ)/">消息队列的概述(MQ)</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2019年07月17日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                    绪言
-目前消息对列的使用还是很广泛的，很多公司对这一块技术都会有要求。比如kafka，activeMQ，RabbitMQ是目前使用较多消息中间件。博主目前使用过activeMQ跟RabbitMQ用起来差别也不大。所以这边看公司需要掌握...
-                
-            </p>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="www.luckyhe.com" target="_blank">橙寂</a>
+            
         </div>
-    </article>
- 
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/07/17/lunix/Docker中安装nginx/" class="pre-post btn btn-default" title='Docker中安装nginx'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Docker中安装nginx</span>
+        </a>
+    
+    
+        <a href="/2019/07/17/java/springclound/2.服务消费者（feign）/" class="next-post btn btn-default" title='服务消费者（feign）'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">服务消费者（feign）</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
 
 
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
 
 
 
@@ -204,129 +324,14 @@
 
                 </main>
                 
-                    
-    <aside class="col-md-4 sidebar">
-        
-        
+                    <aside id="article-toc" role="navigation" class="col-md-4">
     <div class="widget">
-        <h3 class="title">搜索</h3>
-        <div id="search-form">
-            <div id="result-mask" class="hide"></div>
-            <div class="search-area">
-                
-                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢？">
-                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
-                
-                
-                    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Google Search"><button type="submit" class="search-form-submit">谷歌搜索</button><input type="hidden" name="sitesearch" value="http://blog.luckyhe.com"></form>
-                
-            </div>
-            <div id="result-wrap" class="hide">
-                <div id="search-result"></div>
-            </div>
-            <div class="hide">
-                <template id="search-tpl">
-                    <div class="item">
-                        <a href="/{path}" title="{title}">
-                            <div class="title">{title}</div>
-                            <div class="content">{content}</div>
-                        </a>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </div>
-
+        <h3 class="title">文章目录</h3>
         
-        
-    <div class="widget">
-        <h3 class="title">网站公告</h3>
-        <div class="notification">
-            <p>
-    一对一带人培训<a href="http://t.cn/AiWkMIyy" title="fork me" target="_blank">请联系本人QQ</a> <br/>
-    支持主题：<a href="https://github.com/shenliyang/hexo-theme-snippet/stargazers">Star一下</a>
-</p>
-        </div>
-    </div>
-
-        
-        
-    <div class="widget">
-      <h3 class="title">社交</h3> 
-        <div class="content social">
-            
-	            <a href="//github.com/Janhezz" rel="external nofollow" title="Github" target="_blank">
-			    	<i class="git fa fa-git"></i>
-			    </a>
-            
-	            <a href="mailto:975532442@qq.com" rel="external nofollow" title="邮箱" target="_blank">
-			    	<i class="envelope-o fa fa-envelope-o"></i>
-			    </a>
-            
-	            <a href="http://t.cn/AiWkMIyy" rel="external nofollow" title="联系QQ" target="_blank">
-			    	<i class="qq fa fa-qq"></i>
-			    </a>
-            
-	            <a href="/" rel="external nofollow" title="微信" target="_blank">
-			    	<i class="weixin fa fa-weixin"></i>
-			    </a>
-            
-	            <a href="https://jq.qq.com/?_wv=1027&k=5yUZtbr" rel="external nofollow" title="QQ群" target="_blank">
-			    	<i class="users fa fa-users"></i>
-			    </a>
-            
-	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
-			    	<i class="feed fa fa-feed"></i>
-			    </a>
-            
-        </div>
-    </div>
-
-
-        
-        
-    <div class="widget">
-        <h3 class="title">分类</h3>
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/lunix/"><i class="fa" aria-hidden="true">lunix</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">5</span></li></ul>
-    </div>
-
-
-        
-        
-    <div class="widget">
-        <h3 class="title">归档</h3>
-        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/"><i class="fa" aria-hidden="true">2019年07月</i></a><span class="archive-list-count">8</span></li></ul>
-    </div>
-
-
-        
-        
-  <div class="widget">
-    <h3 class="title">标签云</h3>
-    <div class="content tag-cloud">
-        
-            <canvas width="300" height="300" id="tag-cloud-3d">
-                <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/centsos7/" style="font-size: 20px;">centsos7</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/eureka/" style="font-size: 10px;">eureka</a> <a href="/tags/feign/" style="font-size: 10px;">feign</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/lunix/" style="font-size: 20px;">lunix</a> <a href="/tags/mq/" style="font-size: 15px;">mq</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/springClound/" style="font-size: 15px;">springClound</a> <a href="/tags/微服务/" style="font-size: 15px;">微服务</a> <a href="/tags/类加载/" style="font-size: 10px;">类加载</a>
-            </canvas>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-准备工作"><span class="toc-text">1. 准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2安装docker"><span class="toc-text">2安装docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装成功"><span class="toc-text">安装成功</span></a></li></ol>
         
     </div>
-  </div>
-
-
-        
-        
-    <div class="widget">
-        <h3 class="title">友链</h3>
-        <div class="content friends-link">
-        
-            <a href="https://www.luckyhe.com" class="fa" target="_blank">橙寂博客</a>
-        
-        </div>
-    </div>
-
-
-        
-    </aside>
+</aside>
 
                 
             </div>
@@ -379,8 +384,6 @@
     </div>
 </div>
 
-
-	<script src="/js/search.js?rev=@@hash"></script>
 
 
 

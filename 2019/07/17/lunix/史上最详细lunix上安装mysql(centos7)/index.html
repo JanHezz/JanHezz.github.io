@@ -1,0 +1,400 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="橙寂博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://blog.luckyhe.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="lunix,centsos7,mysql">
+
+
+    <meta name="description" content="绪言centos7跟其他版本有些区别，所以自己写了这么一篇。网上很多都是没用的，步骤不全。我这篇超级全。下面开始安装 首先一个全新的系统 yum update 一下 升级一下依赖包。
+1.创建目...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>史上最详细lunix上安装mysql(centos7) | 橙寂博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="橙寂博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='橙寂'>
+            <img src="/img/avatar.png" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 橙寂博客,不忘初心 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://blog.luckyhe.com">橙寂博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/lunix/"><i class="fa "></i>lunix</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="史上最详细lunix上安装mysql(centos7)">
+            
+	            史上最详细lunix上安装mysql(centos7)
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/lunix/">lunix</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/centsos7/">centsos7</a> <a class="tag-link" href="/tags/lunix/">lunix</a> <a class="tag-link" href="/tags/mysql/">mysql</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/17</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="绪言"><a href="#绪言" class="headerlink" title="绪言"></a>绪言</h2><p>centos7跟其他版本有些区别，所以自己写了这么一篇。网上很多都是没用的，步骤不全。我这篇超级全。下面开始安装<br> 首先一个全新的系统 yum update 一下 升级一下依赖包。</p>
+<h2 id="1-创建目录"><a href="#1-创建目录" class="headerlink" title="1.创建目录"></a>1.创建目录</h2><p>  mkdir /usr/local/mysql5.6</p>
+<h2 id="2-上传mysql镜像文件"><a href="#2-上传mysql镜像文件" class="headerlink" title="2.上传mysql镜像文件"></a>2.上传mysql镜像文件</h2><p>  这边我使用的是winscp连接工具直接上传。不同工具上传方式不同的。我上传的是rpm包所以不需要解压。如果是tar.gz结尾。需要解压<br>解压mysql<br>tar -xvf MySQL-5.6.44-1.el7.x86_64.rpm-bundle.tar //注意，是-xvf不是-zxvf</p>
+<h2 id="3-卸载centos自带的mariadb"><a href="#3-卸载centos自带的mariadb" class="headerlink" title="3.卸载centos自带的mariadb"></a>3.卸载centos自带的mariadb</h2><p>  rpm -qa | grep mariadb</p>
+<p>  rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</p>
+<h2 id="4-卸载mysql"><a href="#4-卸载mysql" class="headerlink" title="4.卸载mysql"></a>4.卸载mysql</h2><p>  rpm -qa | grep mysql</p>
+<p>  rpm -e –nodeps 文件名<br>检查服务<br>chkconfig –list | grep -i mysql //查看服务</p>
+<p>chkconfig –del mysql</p>
+<h2 id="5-安装依赖"><a href="#5-安装依赖" class="headerlink" title="5.安装依赖"></a>5.安装依赖</h2><p>yum install perl</p>
+<p>yum install net-tools</p>
+<p>yum -y install autoconf //此包安装时会安装Data:Dumper模块</p>
+<h2 id="6-增加mysq用户组（非必须）"><a href="#6-增加mysq用户组（非必须）" class="headerlink" title="6.增加mysq用户组（非必须）"></a>6.增加mysq用户组（非必须）</h2><p>groupadd mysql<br>useradd -r -g mysql mysql //创建用户并把该用户加入到组mysql，这里的 -r是指该用户是内部用户，不允许外部登录<br>passwd mysql //给用户mysql设置密码，需要输入2次 这一项非必须。、</p>
+<h2 id="7-开始安装（官网下载）"><a href="#7-开始安装（官网下载）" class="headerlink" title="7.开始安装（官网下载）"></a>7.开始安装（官网下载）</h2><p> <a href="https://www.mysql.com/downloads/" target="_blank" rel="noopener">下载mysql</a></p>
+<p>rpm -ivh MySQL-client-5.6.44-1.el7.x86_64.rpm</p>
+<p>rpm -ivh MySQL-devel-5.6.44-1.el7.x86_64.rpm</p>
+<p>rpm -ivh MySQL-server-5.6.44-1.el7.x86_64.rpm</p>
+<h2 id="8-启动mysql"><a href="#8-启动mysql" class="headerlink" title="8.启动mysql"></a>8.启动mysql</h2><p>检查状态：service mysql status</p>
+<p>启动服务：service mysql start</p>
+<p>找到默认密码  cat /root/.mysql_secret</p>
+<p>绕过密码登录 mysqld_safe –user=mysql –skip-grant-tables –skip-networking &amp; //绕过密码登录</p>
+<p>登录 mysql -uroot -p   如果执行了绕过密码登录这一步不需要输入密码</p>
+<p>修改密码：  SET PASSWORD = PASSWORD(‘root’);</p>
+<p>赋予所有用户远程访问权限 grant all privileges on <em>.</em> to ‘root’@’%’ identified by ‘root’ with grant option;</p>
+<p>刷新权限 flush privileges;</p>
+<h2 id="9-开放3306端口"><a href="#9-开放3306端口" class="headerlink" title="9.开放3306端口"></a>9.开放3306端口</h2><p>firewall-cmd –state</p>
+<p>firewall-cmd –permanent –zone=public –add-port=3306/tcp //添加3306端口</p>
+<p>firewall-cmd –reload</p>
+<h2 id="11-把mysql加入开机自启"><a href="#11-把mysql加入开机自启" class="headerlink" title="11.把mysql加入开机自启"></a>11.把mysql加入开机自启</h2><p>chkconfig –list mysql //查看mysql服务</p>
+<p>chkconfig mysqld on //开启MySQL服务自动开启命令</p>
+<p>chkconfig mysql on //开启MySQL服务自动开启命令</p>
+<h2 id="11-mysql集合重要目录"><a href="#11-mysql集合重要目录" class="headerlink" title="11.mysql集合重要目录"></a>11.mysql集合重要目录</h2><p>/var/lib/mysql 数据库文件</p>
+<p>/usr/share/mysql 命令及配置文件</p>
+<p>/usr/bin mysqladmin、mysqldump等命令</p>
+<p>/usr/my.cnf 核心配置文件</p>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://image.luckyhe.com/reward-zfbpay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://image.luckyhe.com/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="www.luckyhe.com" target="_blank">橙寂</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/07/17/mq/消息服务RabbitMQ/" class="pre-post btn btn-default" title='消息服务RabbitMQ'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">消息服务RabbitMQ</span>
+        </a>
+    
+    
+        <a href="/2019/07/17/mq/消息队列的概述(MQ)/" class="next-post btn btn-default" title='消息队列的概述(MQ)'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">消息队列的概述(MQ)</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#绪言"><span class="toc-text">绪言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建目录"><span class="toc-text">1.创建目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-上传mysql镜像文件"><span class="toc-text">2.上传mysql镜像文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-卸载centos自带的mariadb"><span class="toc-text">3.卸载centos自带的mariadb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-卸载mysql"><span class="toc-text">4.卸载mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-安装依赖"><span class="toc-text">5.安装依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-增加mysq用户组（非必须）"><span class="toc-text">6.增加mysq用户组（非必须）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-开始安装（官网下载）"><span class="toc-text">7.开始安装（官网下载）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-启动mysql"><span class="toc-text">8.启动mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-开放3306端口"><span class="toc-text">9.开放3306端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-把mysql加入开机自启"><span class="toc-text">11.把mysql加入开机自启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-mysql集合重要目录"><span class="toc-text">11.mysql集合重要目录</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#444', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '#FFDAB9', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: false || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
