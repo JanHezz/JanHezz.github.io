@@ -18,10 +18,11 @@
     <link rel="dns-prefetch" href="http://blog.luckyhe.com">
     <!--SEO-->
 
-    <meta name="keywords" content="橙寂,砍材人">
+    <meta name="keywords" content="vue,nodejs">
 
 
-    <meta name="description" content="橙寂博客,不忘初心">
+    <meta name="description" content="vue环境的搭建前言
+vue是现在前端框架非常火的一个东西,所以我也想学习下看看这究竟是个什么东西。刚开始很闷进去vue官网看了下文档。对于刚入门者是不太友好的（需要一定的node.js的开发经...">
 
 
 
@@ -33,7 +34,7 @@
     <!--Title-->
 
 
-<title>标签: springClound | 橙寂博客</title>
+<title>vue环境的搭建 | 橙寂博客</title>
 
 
     <link rel="alternate" href="/atom.xml" title="橙寂博客" type="application/atom+xml">
@@ -138,68 +139,162 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <ol class="breadcrumb">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="vue环境的搭建">
+            
+	            vue环境的搭建
+            
+        </h1>
+        <div class="post-meta">
     
-    
-        <li>
-            springClound
-        </li>
-    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/前端/">前端</a>
+        </span>
     
 
-</ol>
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/nodejs/">nodejs</a> <a class="tag-link" href="/tags/vue/">vue</a>
+                
+            </span>
+        </span>
+    
 
-
-    <article class="post">
+    
         
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title">
-                    <a href="/2019/07/17/java/springclound/2.服务消费者（feign）/">服务消费者（feign）</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2019年07月17日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                    服务的消费者1.启动eureka-server跟provider2.新建一个springboot工程选中以下模块
-
-
-pom文件详情如下
-123456789101112131415161718192021222324252627282...
-                
-            </p>
-        </div>
-    </article>
- 
-    <article class="post">
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/22</span>
+        </span>
         
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title">
-                    <a href="/2019/07/17/java/springclound/1.服务的注册与治理（eureka）/">服务的注册与治理（eureka）</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2019年07月17日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                    服务的注册与治理（eureka）
-1.新建一个maven父项目1.2 然后创建2个model工程:一个model工程作为服务注册中心，即Eureka Server,另一个作为Eureka provider。下面以server创建为例子...
-                
-            </p>
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="vue环境的搭建"><a href="#vue环境的搭建" class="headerlink" title="vue环境的搭建"></a><center>vue环境的搭建</center></h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><blockquote>
+<p>vue是现在前端框架非常火的一个东西,所以我也想学习下看看这究竟是个什么东西。刚开始很闷进去vue官网看了下文档。对于刚入门者是不太友好的（需要一定的node.js的开发经验不然大家会跟我一样蒙）。后面经过自己的查阅总算是找到了门道。</p>
+</blockquote>
+<h4 id="安装nodejs环境"><a href="#安装nodejs环境" class="headerlink" title="安装nodejs环境"></a>安装nodejs环境</h4><blockquote>
+<p>1.下载<a href="https://" target="_blank" rel="noopener">http://nodejs.cn/download/</a>先进去下载我下的是10.15版本<img src="http://image.luckyhe.com/mblog/82e33edfae5835cea9b71282db374ebb.png" alt="1.png"><br>2.安装 打开window的是命令行工具（作为程序员这个就不需要交了吧）</p>
+</blockquote>
+<blockquote>
+<p>输入node -v查看版本号显示版本号为安装成功了<br><img src="http://image.luckyhe.com/mblog/c211fc18ef32b5d0b1007f4e32cb8d43.png" alt="2.png"></p>
+</blockquote>
+<h4 id="更改镜像"><a href="#更改镜像" class="headerlink" title="更改镜像"></a>更改镜像</h4><blockquote>
+<p>国内使用npm是非常慢的，所以我们这边使用淘宝的npm镜像</p>
+</blockquote>
+<blockquote>
+<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
+</blockquote>
+<h4 id="安装vue-cli脚手架"><a href="#安装vue-cli脚手架" class="headerlink" title="安装vue_cli脚手架"></a>安装vue_cli脚手架</h4><blockquote>
+<p>cnpm install –global vue-cli</p>
+</blockquote>
+<blockquote>
+<p>验证输入vue验证是否安装成功</p>
+</blockquote>
+<h4 id="开始helloword"><a href="#开始helloword" class="headerlink" title="开始helloword"></a>开始helloword</h4><blockquote>
+<p>环境装好了现在开始熟悉的helloword环节。先切换到您的项目目录切换到D盘直接输入d：然后回车。</p>
+</blockquote>
+<blockquote>
+<p>vue init webpack firstvue fistvue是项目名称 输入后一直回车就行了直到出现这个界面<img src="http://image.luckyhe.com/mblog/da91b3e09b6399d6e52deb1efccf28ba.png" alt="3.png"></p>
+<p>第一个是路由所以yes 后面几个全为no为yes也不会报错。</p>
+</blockquote>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><blockquote>
+<p>项目文件建好了进去你的项目根文件夹<br>cd 路径<br>进去后</p>
+</blockquote>
+<blockquote>
+<p>cnpm install安装依赖</p>
+</blockquote>
+<blockquote>
+<p>cnpm run dev 运行项目项目默认是在8080端口<br><img src="http://image.luckyhe.com/mblog/2d3e964fce8be545a593e9eb302ea762.png" alt="4.png"></p>
+</blockquote>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://image.luckyhe.com/reward-zfbpay.jpg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://image.luckyhe.com/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
         </div>
-    </article>
- 
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
 
 
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="www.luckyhe.com" target="_blank">橙寂</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/07/17/lunix/Docker中安装nginx/" class="next-post btn btn-default" title='Docker中安装nginx'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Docker中安装nginx</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: true,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
 
 
 
@@ -207,129 +302,14 @@ pom文件详情如下
 
                 </main>
                 
-                    
-    <aside class="col-md-4 sidebar">
-        
-        
+                    <aside id="article-toc" role="navigation" class="col-md-4">
     <div class="widget">
-        <h3 class="title">搜索</h3>
-        <div id="search-form">
-            <div id="result-mask" class="hide"></div>
-            <div class="search-area">
-                
-                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢？">
-                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
-                
-                
-                    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Google Search"><button type="submit" class="search-form-submit">谷歌搜索</button><input type="hidden" name="sitesearch" value="http://blog.luckyhe.com"></form>
-                
-            </div>
-            <div id="result-wrap" class="hide">
-                <div id="search-result"></div>
-            </div>
-            <div class="hide">
-                <template id="search-tpl">
-                    <div class="item">
-                        <a href="/{path}" title="{title}">
-                            <div class="title">{title}</div>
-                            <div class="content">{content}</div>
-                        </a>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </div>
-
+        <h3 class="title">文章目录</h3>
         
-        
-    <div class="widget">
-        <h3 class="title">网站公告</h3>
-        <div class="notification">
-            <p>
-    一对一带人培训<a href="http://t.cn/AiWkMIyy" title="fork me" target="_blank">请联系本人QQ</a> <br/>
-    支持主题：<a href="https://github.com/shenliyang/hexo-theme-snippet/stargazers">Star一下</a>
-</p>
-        </div>
-    </div>
-
-        
-        
-    <div class="widget">
-      <h3 class="title">社交</h3> 
-        <div class="content social">
-            
-	            <a href="//github.com/Janhezz" rel="external nofollow" title="Github" target="_blank">
-			    	<i class="git fa fa-git"></i>
-			    </a>
-            
-	            <a href="mailto:975532442@qq.com" rel="external nofollow" title="邮箱" target="_blank">
-			    	<i class="envelope-o fa fa-envelope-o"></i>
-			    </a>
-            
-	            <a href="http://t.cn/AiWkMIyy" rel="external nofollow" title="联系QQ" target="_blank">
-			    	<i class="qq fa fa-qq"></i>
-			    </a>
-            
-	            <a href="/" rel="external nofollow" title="微信" target="_blank">
-			    	<i class="weixin fa fa-weixin"></i>
-			    </a>
-            
-	            <a href="https://jq.qq.com/?_wv=1027&k=5yUZtbr" rel="external nofollow" title="QQ群" target="_blank">
-			    	<i class="users fa fa-users"></i>
-			    </a>
-            
-	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
-			    	<i class="feed fa fa-feed"></i>
-			    </a>
-            
-        </div>
-    </div>
-
-
-        
-        
-    <div class="widget">
-        <h3 class="title">分类</h3>
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/lunix/"><i class="fa" aria-hidden="true">lunix</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/"><i class="fa" aria-hidden="true">前端</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端/"><i class="fa" aria-hidden="true">后端</i></a><span class="category-list-count">5</span></li></ul>
-    </div>
-
-
-        
-        
-    <div class="widget">
-        <h3 class="title">归档</h3>
-        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/"><i class="fa" aria-hidden="true">2019年07月</i></a><span class="archive-list-count">9</span></li></ul>
-    </div>
-
-
-        
-        
-  <div class="widget">
-    <h3 class="title">标签云</h3>
-    <div class="content tag-cloud">
-        
-            <canvas width="300" height="300" id="tag-cloud-3d">
-                <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/centsos7/" style="font-size: 20px;">centsos7</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/eureka/" style="font-size: 10px;">eureka</a> <a href="/tags/feign/" style="font-size: 10px;">feign</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/lunix/" style="font-size: 20px;">lunix</a> <a href="/tags/mq/" style="font-size: 15px;">mq</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/springClound/" style="font-size: 15px;">springClound</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/微服务/" style="font-size: 15px;">微服务</a> <a href="/tags/类加载/" style="font-size: 10px;">类加载</a>
-            </canvas>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vue环境的搭建"><span class="toc-text">vue环境的搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装nodejs环境"><span class="toc-text">安装nodejs环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更改镜像"><span class="toc-text">更改镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装vue-cli脚手架"><span class="toc-text">安装vue_cli脚手架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开始helloword"><span class="toc-text">开始helloword</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li></ol></li></ol></li></ol>
         
     </div>
-  </div>
-
-
-        
-        
-    <div class="widget">
-        <h3 class="title">友链</h3>
-        <div class="content friends-link">
-        
-            <a href="https://www.luckyhe.com" class="fa" target="_blank">橙寂博客</a>
-        
-        </div>
-    </div>
-
-
-        
-    </aside>
+</aside>
 
                 
             </div>
@@ -382,8 +362,6 @@ pom文件详情如下
     </div>
 </div>
 
-
-	<script src="/js/search.js?rev=@@hash"></script>
 
 
 
